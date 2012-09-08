@@ -19,15 +19,29 @@ void setup() {
   // Setup Output Pins - THEY MUST START HIGH OR THERE WILL BE FIRE
   pinMode(leftPin, OUTPUT);
   pinMode(rightPin, OUTPUT);
+
+  pinMode(2, OUTPUT);
+  pinMode(3, OUTPUT);
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(7, OUTPUT);
+
+  digitalWrite(2, HIGH);
+  digitalWrite(3, HIGH);
+  digitalWrite(4, HIGH);
+  digitalWrite(5, HIGH);
+  digitalWrite(6, HIGH);
+  digitalWrite(7, HIGH);
+
   digitalWrite(leftPin, HIGH);
   digitalWrite(rightPin, HIGH); 
   
   // Setup Limit Switches
   pinMode(rightLimitPin, INPUT);
   pinMode(leftLimitPin, INPUT);
-  
+  pinMode(leftRightCenterPin, INPUT);
   Serial.begin(9600);
-
 }
 
 void loop() {
@@ -61,6 +75,7 @@ void loop() {
 }
 
 void calibrate() {
+  Serial.end();
   while (!movementHaltedLeft) {
     moveLeft();
   }
@@ -68,6 +83,7 @@ void calibrate() {
   while (digitalRead(leftRightCenterPin) == HIGH) {
     moveRight();
   }
+  Serial.begin(9600);
 }
 
 void handleLeftRight(int _moveLeftRight) {
